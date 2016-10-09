@@ -1,2 +1,4 @@
 infra/terraform/.terraform
 terraform.tfstate*
+*.swp
+*.swo
