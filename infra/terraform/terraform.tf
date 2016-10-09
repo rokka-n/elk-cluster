@@ -43,6 +43,24 @@ module "k8s" {
   public_subnets     = "${module.vpc.public_subnets}"
 }
 
+# Create ELB with nginx instances
+module "elb-nginx" {
+  source             = "modules/nginx"
+
+  azs                = ["us-east-1b", "us-east-1c", "us-east-1e"]
+  public_subnets     = "${module.vpc.public_subnets}" 
+  min_size           = 1
+  max_size           = 2
+  asg_desired        = 2 
+  vpc_id             = "${module.vpc.vpc_id}"
+  instance_type      = "t2.small"
+  k8s-ssh-key        = "${var.k8s-ssh-key}"
+}
+
 output "master_dns" {
   value = "${module.k8s.public_dns}"
+}
+
+output "elb_dns" {
+  value = "${module.elb-nginx.elb_dns}"
 }
