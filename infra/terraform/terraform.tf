@@ -17,6 +17,8 @@ module "vpc" {
 
   cidr = "10.200.0.0/16"
   public_subnets  = ["10.200.1.0/24", "10.200.2.0/24", "10.200.3.0/24"]
+  enable_dns_hostnames = "true"
+  enable_dns_support = "true"
 
   azs      = ["us-east-1b", "us-east-1c", "us-east-1e"]
 }
@@ -41,6 +43,6 @@ module "k8s" {
   public_subnets     = "${module.vpc.public_subnets}"
 }
 
-output "k8s_master_dns" {
+output "master_dns" {
   value = "${module.k8s.public_dns}"
 }
