@@ -1,4 +1,5 @@
 variable vpc_id           { }
+variable vpc_cidr         { }
 variable public_subnets   { type = "list" }
 variable k8stoken         { }
 variable k8s-ssh-key      { }
@@ -25,11 +26,12 @@ resource "aws_security_group" "allow_ssh" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 
+  // allow access inside vpc
   ingress {
       from_port = 0
       to_port = 0
       protocol = "-1"
-      cidr_blocks = ["10.0.0.0/16"]
+      cidr_blocks = ["${var.vpc_cidr}"]
   }
 
 

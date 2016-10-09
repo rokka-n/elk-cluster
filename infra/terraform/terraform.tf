@@ -1,6 +1,7 @@
 # Amazon resources 
 
 variable region { default = "us-east-1" }
+variable vpc_cidr { default = "10.200.0.0/16" }
 
 provider "aws" {
   region     = "${var.region}"
@@ -15,8 +16,8 @@ module "vpc" {
 
   name = "elk-vpc"
 
-  cidr = "10.200.0.0/16"
-  public_subnets  = ["10.200.1.0/24", "10.200.2.0/24", "10.200.3.0/24"]
+  cidr              = "${var.vpc_cidr}"
+  public_subnets    = ["10.200.1.0/24", "10.200.2.0/24", "10.200.3.0/24"]
   enable_dns_hostnames = "true"
   enable_dns_support = "true"
 
@@ -37,6 +38,7 @@ module "private_subnet" {
 # Create k8s cluster
 module "k8s" {
   source             = "modules/k8s"
+  vpc_cidr           = "${var.vpc_cidr}"
   k8stoken           = "${var.k8stoken}"
   vpc_id             = "${module.vpc.vpc_id}"
   k8s-ssh-key        = "${var.k8s-ssh-key}"
