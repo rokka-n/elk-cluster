@@ -22,11 +22,12 @@ Run plan and then apply with terraform:
 terraform plan -var k8stoken="$K8STOKEN" -var k8s-ssh-key="$(cat k8s-test.pub)"
 ```
 
-After apply you should see output with the DNS name:
+After apply you should see output with the DNS names of kubernetes master and ELB for nginx cluster:
 
 ```
 Outputs:
 
+elb_dns = terraform-nginx-elb-1867464652.us-east-1.elb.amazonaws.com
 master_dns = ec2-54-209-90-109.compute-1.amazonaws.com
 ```
 
@@ -41,3 +42,4 @@ ubuntu@ip-10-200-2-196:~$ kubectl cluster-info
 Kubernetes master is running at http://localhost:8080
 ```
 
+Open elb_dns in browser, you should see nginx welcome page.
