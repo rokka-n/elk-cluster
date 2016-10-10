@@ -42,4 +42,25 @@ ubuntu@ip-10-200-2-196:~$ kubectl cluster-info
 Kubernetes master is running at http://localhost:8080
 ```
 
-Open elb_dns in browser, you should see nginx welcome page.
+# Kibana/ES
+
+After terraform run is completed and k8s setup runs through all steps, kibana and k8s dashboards become available at the master DNS.
+
+```
+MASTER_DNS=$(terraform output master_dns)
+echo $MASTER_DNS
+
+Open in browser:
+Dashboard: http://$MASTER_DNS/k8s-jf2js8/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard/#/workload?namespace=default
+Kibana: http://$MASTER_DNS/k8s-jf2js8/api/v1/proxy/namespaces/kube-system/services/kibana-logging/#/settings/indices/?_g=()
+```
+
+# TODO
+
+Make nginx cluster to send logs to ES
+
+Create ES/Kibana as standalone services, not as k8s addons
+
+Security and authentication for k8s dashboard
+
+Access to Kibana via ELB

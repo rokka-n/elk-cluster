@@ -1,5 +1,8 @@
 #!/bin/bash -v
 
+export KUBE_LOGGING_DESTINATION=elasticsearch
+export KUBE_ENABLE_NODE_LOGGING=true
+
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
