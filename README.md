@@ -57,7 +57,9 @@ Kibana: http://$MASTER_DNS/k8s-jf2js8/api/v1/proxy/namespaces/kube-system/servic
 # TODO
 
 Make nginx cluster to send logs to ES
-Create ES/Kibana as standalone services, not as k8s addons
-Security and authentication for k8s dashboard
-Access to Kibana via ELB
 
+Create ES/Kibana as standalone services, not as k8s addons
+
+Security and authentication for k8s dashboard
+
+Access to Kibana via ELB
